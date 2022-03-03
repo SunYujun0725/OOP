@@ -22,9 +22,11 @@ int main() {
     double sum=0;
     long length=0;
     double avg=0;
+    int checkfloat=0; //確認是否有小數點 //0:沒有
 
     string grade;
     while( 1 ){    //重複輸入計算多次平均
+        checkfloat=0;
         std::cout << "Please input your score :" << endl;
         std::cin >> grade;
         if(grade.compare("end")==0){  //輸入end代表結束程式
@@ -37,24 +39,27 @@ int main() {
                 std::cout << "illegal input, ending the program..." << endl;
                 sum=0;
                 number=0;
+                checkfloat=1;  //是小數點
             }
         }
-        if(atoi(grade.c_str())>=0&&atoi(grade.c_str())<=100){
-            sum+=atoi(grade.c_str());
-        }
-        else if(grade.compare("-1")==0){
-            avg=sum/(number-1);
-            std::cout << "Your average score is :";
-            std::cout << avg << endl;
-        }
-        else if(grade.compare("-1")!=0&&atoi(grade.c_str())==-1){
-            sum=0;
-            number=0;
-        }
-        else {
-            std::cout << "illegal input, ending the program..." << endl;
-            sum=0;
-            number=0;
+        if(checkfloat==0){
+            if(atoi(grade.c_str())>=0&&atoi(grade.c_str())<=100){
+                sum+=atoi(grade.c_str());
+            }
+            else if(grade.compare("-1")==0){
+                avg=sum/(number-1);
+                std::cout << "Your average score is :";
+                std::cout << avg << endl;
+            }
+            else if(grade.compare("-1")!=0&&atoi(grade.c_str())==-1){
+                sum=0;
+                number=0;
+            }
+            else {
+                std::cout << "illegal input, ending the program..." << endl;
+                sum=0;
+                number=0;
+            }
         }
         
     }
