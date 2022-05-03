@@ -76,6 +76,7 @@ ostream &operator<<(ostream &output, const Time &t)
     }
     return output;
 }
+
 istream &operator>>(istream &input, Time &t)
 {
     input >> t.in;
@@ -83,10 +84,15 @@ istream &operator>>(istream &input, Time &t)
     char tempstr[4][10000];
     int j = 0;
     int k = 0;
+    int check = 0;
     for (int i = 0; i < len; i++)
     {
         if (t.in[i] == '~' || t.in[i] == ':')
         {
+            if (t.in[i] == '~')
+            {
+                check++;
+            }
             tempstr[j][k] = '\0'; //手動設置結尾符
             j++;
             k = 0;
@@ -96,6 +102,11 @@ istream &operator>>(istream &input, Time &t)
             tempstr[j][k] = t.in[i];
             k++;
         }
+    }
+    if (j >= 4 || check != 1)
+    {
+        printf("輸入錯誤\n");
+        return input;
     }
     tempstr[j][k] = '\0';     //手動設置結尾符
     t.day = atoi(tempstr[0]); //將字串轉整數型態
@@ -123,6 +134,7 @@ Time Time::operator+(const Time &t)
     Time t3(total);
     return t3;
 }
+
 Time Time::operator-(const Time &t)
 {
     int seconds1 = 0;
