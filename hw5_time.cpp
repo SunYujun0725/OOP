@@ -85,6 +85,7 @@ istream &operator>>(istream &input, Time &t)
     int j = 0;
     int k = 0;
     int check = 0;
+    int neg = 0;
     for (int i = 0; i < len; i++)
     {
         if (t.in[i] == '~' || t.in[i] == ':')
@@ -101,6 +102,10 @@ istream &operator>>(istream &input, Time &t)
         {
             tempstr[j][k] = t.in[i];
             k++;
+        }
+        if (t.in[i] == '-')
+        {
+            neg = 1;
         }
     }
     if (j >= 4 || check != 1)
@@ -121,6 +126,10 @@ istream &operator>>(istream &input, Time &t)
     t.minutes = ((se / 60) % 60);
     t.hours = (((se / 60) / 60) % 24);
     t.day = (((se / 60) / 60) / 24);
+    if (neg == 1)
+    {
+        t.day = t.hours = t.minutes = t.seconds = 0;
+    }
     return input;
 }
 
